@@ -2137,8 +2137,11 @@ public void cargar()
                 detalle=false;        
         
             String str = txt_buscar.getText().toUpperCase().trim();
-            ResultadoBusqueda resultado = new ResultadoBusqueda (detalle, str, this.path,this.presupuesto);
-            resultado.setVisible(true);    
+            
+            if (!str.equals("")){
+                ResultadoBusqueda resultado = new ResultadoBusqueda (detalle, str, this.path,this.presupuesto);
+                resultado.setVisible(true);   
+            }
     }
     
     public void btn_sumatoria(){

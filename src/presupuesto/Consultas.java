@@ -52,7 +52,6 @@ public class Consultas extends javax.swing.JDialog {
         btn_sumatoria.setIcon(sumatoriaicon);
          btn_pagado.setVisible(false);
          btn_atras.setVisible(false);
-         btn_agregardeposito.setEnabled(true);
          
          
          sumatoria();         
@@ -83,8 +82,6 @@ public class Consultas extends javax.swing.JDialog {
         btn_pagado = new javax.swing.JButton();
         btn_sumatoria = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        btn_agregardeposito = new javax.swing.JButton();
-        btn_verdepositos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tarjetas de Credito");
@@ -170,40 +167,20 @@ public class Consultas extends javax.swing.JDialog {
             }
         });
 
-        btn_agregardeposito.setLabel("Agregar Deposito Bancario");
-        btn_agregardeposito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregardepositoActionPerformed(evt);
-            }
-        });
-
-        btn_verdepositos.setText("Ver Depositos Pendientes");
-        btn_verdepositos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_verdepositosActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_pagado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_sumatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(281, 281, 281)
-                        .addComponent(btn_atras))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btn_verdepositos, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_agregardeposito)))
-                .addContainerGap(467, Short.MAX_VALUE))
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_pagado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_sumatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(281, 281, 281)
+                .addComponent(btn_atras)
+                .addContainerGap(506, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -220,11 +197,7 @@ public class Consultas extends javax.swing.JDialog {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_agregardeposito)
-                    .addComponent(btn_verdepositos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                .addContainerGap(267, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_pagado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_sumatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,8 +207,8 @@ public class Consultas extends javax.swing.JDialog {
                 .addGap(39, 39, 39))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(45, 45, 45)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(32, 32, 32)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_monto)
@@ -317,7 +290,7 @@ public class Consultas extends javax.swing.JDialog {
                             this.atras=true;
                             btn_pagado.setVisible(true);
                             btn_atras.setVisible(true);                            
-                            btn_agregardeposito.setEnabled(false);
+                          
 
                             jTable1.setModel(new javax.swing.table.DefaultTableModel(
                                     this.rowData,
@@ -435,7 +408,7 @@ public class Consultas extends javax.swing.JDialog {
             this.atras=false;
              btn_pagado.setVisible(false);
              btn_atras.setVisible(false);
-             btn_agregardeposito.setEnabled(true);
+          
         }
     }//GEN-LAST:event_btn_atrasActionPerformed
 
@@ -543,65 +516,6 @@ public class Consultas extends javax.swing.JDialog {
          }        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btn_agregardepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregardepositoActionPerformed
-        // TODO add your handling code here:
-        
-          try {                              
-                Utilities utils = new Utilities ();
-                PresupuestoDAO con = PresupuestoDAO.getInstance();
-                
-                                
-                TableModel model = jTable1.getModel();
-                
-                int row = jTable1.getSelectedRow();
-                int col = jTable1.getSelectedColumn();  
-                                                                
-                if  (row!=-1 && col!=-1)
-                {                  
-                    String tarjeta = jTable1.getValueAt(row, 0).toString();
-                       
-                    this.rowData=con.getGastosPresupuestoxTipoPago(Integer.parseInt(this.presupuesto.getIdpresupuesto()), tarjeta);
-
-                    if (this.rowData.length==0){
-                    JOptionPane.showMessageDialog(null,
-                        "Los rubros asignados a "+tarjeta+" aun no han sido pagados.");
-                    }                    
-                    else
-                    if( con.hayxAsignar  (this.presupuesto.getIdpresupuesto(), tarjeta) )
-                    {
-                     JOptionPane.showMessageDialog(null,
-                             "La tarjeta "+tarjeta+" tiene PAGADOS SIN ASIGNAR.");
-                    }                    
-                    else
-                    {
-                        JDialogDepositoComprobante dep = new JDialogDepositoComprobante (new JFrame(),true,presupuesto,tarjeta);
-                        dep.setVisible(true); 
-                         sumatoria();   
-                    }
-                }
-                else
-                {
-                JOptionPane.showMessageDialog(null,
-                        "Seleccione una tarjeta para agregar un depósito.");
-                }                
-            }catch (Exception ex) {
-                DialogError error = new DialogError (null,true,ex);
-                error.setVisible(true);
-            }        
-                  
-        
-
-        
-    }//GEN-LAST:event_btn_agregardepositoActionPerformed
-
-    private void btn_verdepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verdepositosActionPerformed
-        // TODO add your handling code here:
-        
-         JDialogDepositosPendientes pen = new JDialogDepositosPendientes (new JFrame(),true,presupuesto);
-         pen.setVisible(true);
-         
-    }//GEN-LAST:event_btn_verdepositosActionPerformed
-
     
 
             
@@ -695,12 +609,13 @@ public class Consultas extends javax.swing.JDialog {
                 
             lbl_monto.setText(utils.priceWithDecimal(monto));               
             
+            /*
             if(con.hayDepositosPendientes()){
             
                     JOptionPane.showMessageDialog(null,
                             "Hay depositos pendientes de realizar que pueden afectar esta consulta. \n Para mas detalle haga click en [Ver Depositos Pendientes]");                                                    
             }
-            
+            */
             
           
         } catch (SQLException ex) {
@@ -713,11 +628,9 @@ public class Consultas extends javax.swing.JDialog {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_agregardeposito;
     private javax.swing.JButton btn_atras;
     private javax.swing.JButton btn_pagado;
     private javax.swing.JButton btn_sumatoria;
-    private javax.swing.JButton btn_verdepositos;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -128,9 +128,14 @@ public class Login extends javax.swing.JDialog     {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Base de Datos");
 
-        txt_basedatos.setText("186.15.143.249:1521");
+        txt_basedatos.setText("190.113.127.144:1521");
+        txt_basedatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_basedatosActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Version compilada 22/07/2016 ");
+        jLabel5.setText("Version compilada 27/09/2016 ");
 
         jCheckBox1.setLabel("Local");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -334,10 +339,14 @@ public class Login extends javax.swing.JDialog     {
         if (jCheckBox1.isSelected())
           txt_basedatos.setText("localhost:1521");
         else
-             txt_basedatos.setText("186.15.0.168:1521");
+             txt_basedatos.setText("190.113.127.144:1521");
             
             
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void txt_basedatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_basedatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_basedatosActionPerformed
 
     /**
      * @param args the command line arguments

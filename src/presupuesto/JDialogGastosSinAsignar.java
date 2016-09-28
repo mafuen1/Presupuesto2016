@@ -79,6 +79,7 @@ public class JDialogGastosSinAsignar extends javax.swing.JDialog {
         enviar_a_pendientes = new javax.swing.JButton();
         btn_sumatoria = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,7 +88,7 @@ public class JDialogGastosSinAsignar extends javax.swing.JDialog {
 
         lbl_quincena.setFont(new java.awt.Font("Arial Unicode MS", 1, 18)); // NOI18N
         lbl_quincena.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_quincena.setText("Gastos");
+        lbl_quincena.setText("Gastos por asignar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -140,7 +141,7 @@ public class JDialogGastosSinAsignar extends javax.swing.JDialog {
             }
         });
 
-        btn_asignar.setText("Asignar");
+        btn_asignar.setLabel("Asignar a Rubro");
         btn_asignar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_asignarActionPerformed(evt);
@@ -161,7 +162,17 @@ public class JDialogGastosSinAsignar extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Listado de gastos ejecutados sin asignar.");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Listado de gastos realizados que aún estan pendientes de asignar.");
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 0, 51));
+        jButton1.setLabel("Crear Rubro Nuevo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,26 +182,26 @@ public class JDialogGastosSinAsignar extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(btn_insertar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_sumatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(255, 255, 255)
-                                .addComponent(enviar_a_pendientes)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_asignar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btn_insertar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_sumatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(enviar_a_pendientes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_asignar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -207,9 +218,10 @@ public class JDialogGastosSinAsignar extends javax.swing.JDialog {
                         .addComponent(btn_modificar)
                         .addComponent(btn_eliminar)
                         .addComponent(btn_asignar)
-                        .addComponent(enviar_a_pendientes))
+                        .addComponent(enviar_a_pendientes)
+                        .addComponent(jButton1))
                     .addComponent(btn_sumatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -450,6 +462,42 @@ public class JDialogGastosSinAsignar extends javax.swing.JDialog {
         
     }//GEN-LAST:event_enviar_a_pendientesActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        TableModel model = jTable1.getModel();
+        Utilities utils = new Utilities();
+        int row = jTable1.getSelectedRow();
+        int col = jTable1.getSelectedColumn();  
+
+        if  (row!=-1 && col!=-1)
+        {         
+
+            PresupuestoDAO presupuestodao = null;
+            try {
+                presupuestodao = PresupuestoDAO.getInstance();       
+                                                              
+                presupuestodao.sp_insertar_gasto_as_rubro(this.presupuesto.getIdpresupuesto(), model.getValueAt(row, 0).toString());
+            
+                                
+                JOptionPane.showMessageDialog(null,
+                "Nuevo rubro creado.");
+                
+            } catch (Exception ex) {
+                 DialogError error = new DialogError (null,true,ex);
+                 error.setVisible(true);
+            }          
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,
+            "Debe seleccionar un gasto de la tabla.");
+        }         
+                
+         
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
 public void insertarComoPendiente(PendientesObject pendientes) throws SQLException, ParseException
     {
@@ -634,6 +682,7 @@ public void btn_sumatoria(){
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_sumatoria;
     private javax.swing.JButton enviar_a_pendientes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

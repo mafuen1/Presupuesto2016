@@ -165,6 +165,21 @@ public class PresupuestoDAO
         con.commit();      
           
   }       
+    
+    public void sp_insertar_gasto_as_rubro (String idpresupuesto,String idgasto) throws SQLException 
+  {    
+
+
+        CallableStatement prcProcedimientoAlmacenado = con.prepareCall("{ call INSERTAR_GASTO_AS_RUBRO(?,?) }");
+        // cargar parametros al SP
+        prcProcedimientoAlmacenado.setInt   (1,Integer.valueOf(idpresupuesto));
+        prcProcedimientoAlmacenado.setString  (2,idgasto);
+        // ejecutar el SP
+        prcProcedimientoAlmacenado.execute();
+        // confirmar si se ejecuto sin errores
+        con.commit();      
+          
+  }         
   
 
     public void sp_eliminar_gasto (String idgasto, String idrubro) throws SQLException 

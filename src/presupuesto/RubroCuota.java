@@ -626,11 +626,11 @@ public class RubroCuota extends javax.swing.JDialog {
                             financiadopagos_obj.setFecha_pago_minimo(df.format(date_fechaMinimo));
                             financiadopagos_obj.setFecha_pago_contado(df.format(date_fechaContado));                                                                            
                         }   
-                        if (monto!=0){
+                       /* if (monto!=0){
                             financiadopagos_obj.setNcuota(String.valueOf(j)); 
                             financiadopagos_obj.setMonto(String.valueOf(monto));
                             presupuestodao.insertarFinanciadoPagos(financiadopagos_obj);                        
-                        }                        
+                        }   */                     
                     }
                     else
                     {   int j=1;                        
@@ -657,11 +657,11 @@ public class RubroCuota extends javax.swing.JDialog {
                                                             
                             
                         } 
-                        if (monto!=0){
+                        /*if (monto!=0){
                             financiadopagos_obj.setNcuota(String.valueOf(j)); 
                             financiadopagos_obj.setMonto(String.valueOf(monto));
                             presupuestodao.insertarFinanciadoPagos(financiadopagos_obj);                        
-                        }                         
+                        }     */                    
                     }
                 }
                 

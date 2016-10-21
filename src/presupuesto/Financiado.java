@@ -269,7 +269,7 @@ public class Financiado extends javax.swing.JDialog {
             if  (row!=-1 && col!=-1)
             {                                
                 String idrubro = jTable1.getValueAt(row, 0).toString();
-                String nombre = jTable1.getValueAt(row, 2).toString();
+                String nombre = jTable1.getValueAt(row, 3).toString();
 
 
                 if(JOptionPane.showConfirmDialog(null, "¿Desea eliminar el rubro '"+nombre+"'?",
@@ -281,8 +281,8 @@ public class Financiado extends javax.swing.JDialog {
                     boolean hay = con.hayPagosAsignadosoPagados(idrubro);
                     
                     if (!hay){
-                        con.borrarPendientes(idrubro);
                         con.borrarFinanciadoPagos(idrubro);
+                        con.borrarPendientes(idrubro);                        
                         cargar();
                     }
                     else

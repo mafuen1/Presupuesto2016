@@ -64,7 +64,9 @@ public class PresupuestoDAO
         con=DriverManager.getConnection(  
             "jdbc:oracle:thin:@"+base_datos+":xe","presupuesto","smp240383");           
             //    "jdbc:oracle:thin:@186.15.11.42:1522:xe","PRESUPUESTO","200125433");           
-      //  "jdbc:oracle:thin:@localhost:1521:xe","PRESUPUESTO","200125433");     
+      //  "jdbc:oracle:thin:@localhost:1521:xe","PRESUPUESTO","200125433");  
+      
+      con.setAutoCommit(false);     
   
   }
         
@@ -884,7 +886,7 @@ try {
     boolean hay=false;
 
       Statement stmt = con.createStatement();
-      String strSQL = "SELECT * FROM GASTOS WHERE IDPRESUPUESTO=" + idpresupuesto  ;
+      String strSQL = "SELECT * FROM GASTOS WHERE IDGASTO<>0 AND IDPRESUPUESTO=" + idpresupuesto  ;
       
       ResultSet rs = stmt.executeQuery(strSQL);      
        

@@ -146,7 +146,7 @@ public class Presupuesto extends javax.swing.JFrame {
         else
             btn_atras.setEnabled(true);   
         
-        recordatorios(true);
+       // recordatorios(true);
         
         
  try {            
@@ -254,6 +254,8 @@ public String path()
         radio_monto = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        idpresupuesto_txt = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jMenuItem_modificar.setText("Modificar");
         jMenuItem_modificar.addActionListener(new java.awt.event.ActionListener() {
@@ -785,6 +787,8 @@ public String path()
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Listado de rubros asignados al presupuesto");
 
+        jLabel3.setText("Presupuesto: ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -796,10 +800,14 @@ public String path()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(413, 413, 413)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(101, 101, 101)
+                .addComponent(idpresupuesto_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(313, 313, 313))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -808,7 +816,11 @@ public String path()
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(idpresupuesto_txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -852,6 +864,8 @@ public void cargarPresupuesto()
 
         QuincenaActual quincenaActual = QuincenaActual.getInstance();
         this.presupuesto = quincenaActual.getPresupuestoobject();
+        
+        idpresupuesto_txt.setText(this.presupuesto.getIdpresupuesto());   
         int quincena = Integer.parseInt(cmb_quincena.getSelectedItem().toString());
         
         Object[][] datos;
@@ -1941,20 +1955,26 @@ public void actualizarTabla(Object[][] datos){
               
               PresupuestoDAO con = PresupuestoDAO.getInstance();                                              
 
+              
+              JOptionPane.showMessageDialog(null,
+                                "Los gastos ya asignados volveran a su estado sin asignar. No se perderan.");
 
                     if(JOptionPane.showConfirmDialog(null, "¿Desea limpiar la quincena?",
                                                             "Warning",
                                                             JOptionPane.OK_CANCEL_OPTION,
                                                             JOptionPane.QUESTION_MESSAGE)
                                                             ==JOptionPane.OK_OPTION){                                                
+
+
                         
-                        boolean gastos = con.hayGastosenPresupuesto(this.presupuesto.getIdpresupuesto());
+
                         
-                        if (gastos){
-                            JOptionPane.showMessageDialog(null,
-                                "LA QUINCENA NO PUEDE SER LIMPIADA PORQUE TIENE GASTOS ASOCIADOS O SIN ASIGNAR");
-                        }else
-                        {
+                       // boolean gastos = con.hayGastosenPresupuesto(this.presupuesto.getIdpresupuesto());
+
+
+
+                        
+                        
                                          
                             //con.LIMPIAR_QUINCENA(this.presupuesto.getIdpresupuesto());
                             // con.getQuincenaPrevia();
@@ -1968,7 +1988,12 @@ public void actualizarTabla(Object[][] datos){
 
                                JOptionPane.showMessageDialog(null,
                                   "Quincena limpiada.");
-                        }
+                               lbl_presupuesto.setText("0.00");
+                               lbl_gastado.setText("0.00");
+                               lbl_monto_disponible.setText("0.00");
+                               lbl_saldo.setText("0.00");
+                               
+                        
                     }
               
           } catch (Exception ex) {
@@ -2443,10 +2468,12 @@ public void cargar()
     private javax.swing.JComboBox cmb_ano;
     private javax.swing.JComboBox cmb_mes;
     private javax.swing.JComboBox cmb_quincena;
+    private javax.swing.JLabel idpresupuesto_txt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem_eliminar;

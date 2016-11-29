@@ -59,7 +59,7 @@
                               <Component id="lbl_total_gastado" pref="181" max="32767" attributes="0"/>
                               <Component id="lbl_saldo_rubro" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="27" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -70,7 +70,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="311" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="323" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -257,12 +257,12 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lbl_monto_presupuestado" min="-2" pref="146" max="-2" attributes="0"/>
-                              <EmptySpace min="25" pref="478" max="32767" attributes="0"/>
+                              <EmptySpace min="25" pref="594" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lbl_tipo_pago" min="-2" pref="367" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="btn_corregir_saldo_rubro" pref="228" max="32767" attributes="0"/>
+                              <Component id="btn_corregir_saldo_rubro" pref="344" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>

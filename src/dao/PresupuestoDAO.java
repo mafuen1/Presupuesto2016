@@ -66,7 +66,7 @@ public class PresupuestoDAO
             //    "jdbc:oracle:thin:@186.15.11.42:1522:xe","PRESUPUESTO","200125433");           
       //  "jdbc:oracle:thin:@localhost:1521:xe","PRESUPUESTO","200125433");  
       
-      con.setAutoCommit(false);     
+     // con.setAutoCommit(false);     
   
   }
         
@@ -80,7 +80,7 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();                
+        //con.commit();                
   } 
   
   
@@ -98,7 +98,7 @@ public class PresupuestoDAO
         String idpre = String.valueOf(  prcProcedimientoAlmacenado.getInt(1) );
         
         // confirmar si se ejecuto sin errores
-        con.commit();   
+       // con.commit();   
         
         return idpre;
   }   
@@ -114,7 +114,7 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();      
+      //  con.commit();      
           
   } 
 
@@ -128,7 +128,7 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();      
+        //con.commit();      
           
   } 
     
@@ -146,12 +146,12 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();      
+        //con.commit();      
           
   }     
     
 
-    public void sp_insertar_rubro (String idpresupuesto,String nombre, double monto, String tipo_pago) throws SQLException 
+  public void sp_insertar_rubro (String idpresupuesto,String nombre, double monto, String tipo_pago) throws SQLException 
   {    
 
 
@@ -164,7 +164,7 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();      
+       // con.commit();      
           
   }       
     
@@ -179,7 +179,7 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();      
+       // con.commit();      
           
   }         
   
@@ -195,7 +195,7 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();      
+       // con.commit();      
       
     
   } 
@@ -215,7 +215,7 @@ public class PresupuestoDAO
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();            
+      //  con.commit();            
     
   } 
     
@@ -242,7 +242,7 @@ try {
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();
+     //   con.commit();
       } catch (ParseException ex) {
           Logger.getLogger(PresupuestoDAO.class.getName()).log(Level.SEVERE, null, ex);
       }        
@@ -273,7 +273,7 @@ try {
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();
+       // con.commit();
       } catch (ParseException ex) {
           Logger.getLogger(PresupuestoDAO.class.getName()).log(Level.SEVERE, null, ex);
       }        
@@ -297,7 +297,7 @@ try {
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();
+       // con.commit();
 
   }     
     
@@ -315,7 +315,7 @@ try {
         // ejecutar el SP
         prcProcedimientoAlmacenado.execute();
         // confirmar si se ejecuto sin errores
-        con.commit();            
+        //con.commit();            
     
   }         
   
@@ -637,6 +637,24 @@ try {
     return total;
   }
     
+  public String getTotalGastadoSinAsignar(String indpresupuesto) throws SQLException 
+  { 
+    String total="0";
+
+      Statement stmt = con.createStatement();
+      String strSQL = "SELECT SUM(MONTO)AS TOTAL FROM GASTOS WHERE IDRUBRO=0 AND IDPRESUPUESTO=" + indpresupuesto ;
+      
+      ResultSet rs = stmt.executeQuery(strSQL);      
+     
+      while (rs.next())
+        total = String.valueOf(rs.getDouble("TOTAL")) ;
+   
+            rs.close();
+      stmt.close();
+
+    return total;
+  }  
+  
     
   public String getTotalGastadoxTipoPago(int indpresupuesto, String tipo_pago) throws SQLException 
   { 
@@ -2530,6 +2548,80 @@ public ConfiguracionObject getConfiguracionSilvia () throws SQLException
         return rowData;
   
   } 
+  
+  
+  
+  public String [][] getGastosFinanciado(String plan) throws SQLException 
+  {    
+    Utilities utils = new Utilities();   
+    String fechaCompra="",diaCorte="",diasPagoContado="",diasPagoMinimo="";
+    
+      Statement stmt = con.createStatement();
+      
+      String strSQL;
+      if(!plan.equals("TODOS"))
+       strSQL = "SELECT F.IDFINANCIADO AS IDFINANCIADO,F.NOMBRE AS NOMBRE,F.MONTO_TOTAL AS MONTO_TOTAL,"
+              + "F.TIPO_PAGO AS TIPO_PAGO,F.FECHA_PAGO_MINIMO AS FECHA_PAGO_MINIMO,F.FECHA_PAGO_CONTADO AS FECHA_PAGO_CONTADO,F.FECHA AS FECHA,F.PLAN AS PLAN"
+              + " FROM FINANCIADO F WHERE   F.ESTADO='ACTIVO' AND  upper(PLAN) like '%"+plan+"%' "
+              + "  ORDER BY FECHA_PAGO_CONTADO ";
+      else
+       strSQL = "SELECT F.IDFINANCIADO AS IDFINANCIADO,F.NOMBRE AS NOMBRE,F.MONTO_TOTAL AS MONTO_TOTAL,"
+              + "F.TIPO_PAGO AS TIPO_PAGO,F.FECHA_PAGO_MINIMO AS FECHA_PAGO_MINIMO,F.FECHA_PAGO_CONTADO AS FECHA_PAGO_CONTADO,F.FECHA AS FECHA,F.PLAN AS PLAN"
+              + " FROM FINANCIADO F WHERE   F.ESTADO='ACTIVO' "
+              + "  ORDER BY FECHA_PAGO_CONTADO ";
+   
+       
+      System.out.println(strSQL);
+      ResultSet rs = stmt.executeQuery(strSQL);      
+       
+      int index=0;
+      String registro[];
+      ArrayList arrayList = new ArrayList();
+      while (rs.next())
+      {   
+        registro = new String[8];  
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        registro[0] =  rs.getString("IDFINANCIADO");        
+        registro[1] =  rs.getString("PLAN");
+        
+        registro[2] = df.format(rs.getDate("FECHA")); 
+                        
+        registro[3] =  rs.getString("NOMBRE");       
+        registro[4] =  utils.priceWithDecimal(rs.getDouble("MONTO_TOTAL"));
+        registro[5] =  rs.getString("TIPO_PAGO");                    
+        registro[6] = df.format(rs.getDate("FECHA_PAGO_MINIMO")); 
+        registro[7] = df.format(rs.getDate("FECHA_PAGO_CONTADO"));         
+             
+        arrayList.add(registro);
+        index++;
+      }      
+
+
+    String[][] rowData = new String[index][8];    
+    int j=0;
+    while (j<index)
+    {
+        arrayList.iterator().hasNext();
+        String reg[] = (String[]) arrayList.get(j);
+        rowData [j][0] = reg[0] ;
+        rowData [j][1] = reg[1] ;
+        rowData [j][2] = reg[2] ;
+        rowData [j][3] = reg[3] ;
+        rowData [j][4] = reg[4] ;       
+        rowData [j][5] = reg[5] ;
+        rowData [j][6] = reg[6] ;
+        rowData [j][7] = reg[7] ;
+        
+        j++;
+    }	      
+
+          rs.close();
+      stmt.close();
+        return rowData;
+  
+  } 
+  
   
   public String [][] getGastosFinanciadoxPLAN(String plan) throws SQLException 
   { 

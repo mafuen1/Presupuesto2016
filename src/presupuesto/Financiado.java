@@ -61,7 +61,7 @@ public class Financiado extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
        
-        cargar();
+        cargarPendientes();
         this.presupuesto=presupuesto;
         setLocationRelativeTo(null);
         jTable1.getDefaultEditor(String.class).addCellEditorListener(ChangeNotification);
@@ -96,6 +96,7 @@ public class Financiado extends javax.swing.JDialog {
         btn_agregar_rubro_al_presupuesto = new javax.swing.JButton();
         btn_sumatoria = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        cmb_plan = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pendientes de pagar");
@@ -157,7 +158,7 @@ public class Financiado extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_rubros_financiados, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,6 +190,13 @@ public class Financiado extends javax.swing.JDialog {
 
         jLabel1.setText("Listado de pendientes ordenados por prioridad de pago.");
 
+        cmb_plan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "SIG. QUINCENA", "TASA0", "CREDIX", "KUIKI" }));
+        cmb_plan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_planActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -197,7 +205,7 @@ public class Financiado extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btn_insertar_gasto)
                         .addGap(2, 2, 2)
@@ -212,7 +220,8 @@ public class Financiado extends javax.swing.JDialog {
                         .addComponent(btn_agregar_rubro_al_presupuesto))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmb_plan, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -220,9 +229,11 @@ public class Financiado extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmb_plan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -232,14 +243,16 @@ public class Financiado extends javax.swing.JDialog {
                         .addComponent(btn_modificar)
                         .addComponent(btn_agregar_rubro_al_presupuesto))
                     .addComponent(btn_sumatoria, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +296,7 @@ public class Financiado extends javax.swing.JDialog {
                     if (!hay){
                         con.borrarFinanciadoPagos(idrubro);
                         con.borrarPendientes(idrubro);                        
-                        cargar();
+                        cargarPendientes();
                     }
                     else
                     {
@@ -309,7 +322,7 @@ public class Financiado extends javax.swing.JDialog {
             RubroCuota insertar = new RubroCuota (new JFrame(),true);
             insertar.setVisible(true);
             if(!insertar.cancelar)
-            cargar();
+            cargarPendientes();
         
     }//GEN-LAST:event_btn_insertar_gastoActionPerformed
 
@@ -332,7 +345,7 @@ public class Financiado extends javax.swing.JDialog {
                     con.modificarPendiente(pendiente);
                 }       
                 
-                cargar();                
+                cargarPendientes();                
             } catch (Exception ex) {
                 DialogError error = new DialogError (null,true,ex);
                 error.setVisible(true);
@@ -397,7 +410,7 @@ public class Financiado extends javax.swing.JDialog {
                 {
                     RubroCuota modificar = new RubroCuota (new JFrame(),true,obj);
                     modificar.setVisible(true);            
-                    cargar();
+                    cargarPendientes();
                 }
             }catch (SQLException ex) {
                 DialogError error = new DialogError (null,true,ex);         
@@ -414,13 +427,27 @@ public class Financiado extends javax.swing.JDialog {
     private void btn_agregar_rubro_al_presupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar_rubro_al_presupuestoActionPerformed
         // TODO add your handling code here:
         insertarRubro();
-        //cargar();        
+        //cargarPendientes();        
     }//GEN-LAST:event_btn_agregar_rubro_al_presupuestoActionPerformed
 
     private void btn_sumatoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sumatoriaActionPerformed
         // TODO add your handling code here:
         btn_sumatoria();
     }//GEN-LAST:event_btn_sumatoriaActionPerformed
+
+    private void cmb_planActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_planActionPerformed
+        // TODO add your handling code here:
+ try {
+            PresupuestoDAO con = PresupuestoDAO.getInstance();            
+            this.rowData=con.getGastosFinanciado(cmb_plan.getSelectedItem().toString());        
+            actualizarTabla(this.rowData);
+
+        } catch (Exception ex) {
+             DialogError error = new DialogError (null,true,ex);
+                   error.setVisible(true);
+        }            
+        
+    }//GEN-LAST:event_cmb_planActionPerformed
 
    public void btn_sumatoria(){
         TableModel model = jTable1.getModel();
@@ -634,7 +661,7 @@ public class Financiado extends javax.swing.JDialog {
             }     
     }
     
-    public void cargar()
+    public void cargarPendientes()
     {
         try {
             PresupuestoDAO con = PresupuestoDAO.getInstance();            
@@ -690,6 +717,7 @@ public class Financiado extends javax.swing.JDialog {
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_pagos;
     private javax.swing.JButton btn_sumatoria;
+    private javax.swing.JComboBox<String> cmb_plan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -8,14 +8,18 @@ package presupuesto;
 import dao.GastoObject;
 import dao.PresupuestoDAO;
 import dao.RubrosObject;
+import dao.TipoPagoObject;
 import dao.TiposPagoSingleton;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -60,7 +64,7 @@ public class Gastos extends javax.swing.JDialog {
         setLocationRelativeTo(null);   
 
         Utilities utils = new Utilities ();
-        txt_fecha1.setText(utils.getDate());
+        txt_fecha.setText(utils.getDate());
         
         PresupuestoDAO con = null;
         try {
@@ -96,7 +100,7 @@ public class Gastos extends javax.swing.JDialog {
         this.setTitle("Modificar Gasto");
          lbl_quincena.setText("Modificar Gasto"); 
 
-        txt_fecha1.setText(obj.getFecha());
+        txt_fecha.setText(obj.getFecha());
         txt_lugar1.setText(obj.getLugar());
         txt_monto1.setText(obj.getMonto());
         cmb_tipo_pago.setSelectedItem(obj.getTipo_pago());
@@ -122,13 +126,18 @@ public class Gastos extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txt_fecha1 = new javax.swing.JTextField();
+        txt_fecha = new javax.swing.JTextField();
         txt_lugar1 = new javax.swing.JTextField();
         txt_monto1 = new javax.swing.JTextField();
-        btn_aceptar = new javax.swing.JButton();
-        gtn_cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmb_tipo_pago = new javax.swing.JComboBox();
+        btn_aceptar = new javax.swing.JButton();
+        gtn_cancelar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lbl_quincena = new javax.swing.JLabel();
 
@@ -149,6 +158,15 @@ public class Gastos extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText("Tipo Pago:");
+
+        cmb_tipo_pago.setName(""); // NOI18N
+        cmb_tipo_pago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_tipo_pagoActionPerformed(evt);
+            }
+        });
+
         btn_aceptar.setText("Aceptar");
         btn_aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,9 +181,46 @@ public class Gastos extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Tipo Pago:");
+        jPanel3.setBackground(new java.awt.Color(251, 219, 251));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        cmb_tipo_pago.setName(""); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Día de corte:");
+        jLabel9.setName(""); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Fecha Limite pago Contado:");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Fecha Limite pago Mínimo:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("Pago próximo:");
+        jLabel13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -174,25 +229,31 @@ public class Gastos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_gasto)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_gasto)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_aceptar)
-                                .addGap(18, 18, 18)
-                                .addComponent(gtn_cancelar))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txt_monto1)
-                                .addComponent(txt_lugar1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_fecha1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                                .addComponent(cmb_tipo_pago, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel1))
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txt_monto1)
+                                    .addComponent(txt_lugar1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_fecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                    .addComponent(cmb_tipo_pago, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel13))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(196, Short.MAX_VALUE)
+                .addComponent(btn_aceptar)
+                .addGap(18, 18, 18)
+                .addComponent(gtn_cancelar)
+                .addGap(149, 149, 149))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +263,7 @@ public class Gastos extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -215,11 +276,15 @@ public class Gastos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cmb_tipo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_aceptar)
                     .addComponent(gtn_cancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 255));
@@ -258,7 +323,7 @@ public class Gastos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -286,11 +351,101 @@ public class Gastos extends javax.swing.JDialog {
         }
                 
     }//GEN-LAST:event_txt_monto1KeyReleased
+
+    private void cmb_tipo_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_tipo_pagoActionPerformed
+        // TODO add your handling code here:
+        
+    TipoPagoObject tipoPago; 
+
+    Date date_fechaContado;
+    Date date_fechaMinimo;
+    
+       PresupuestoDAO db = null;
+       Utilities utils = new Utilities();
+        try {
+            db = PresupuestoDAO.getInstance();           
+            
+            tipoPago = new TipoPagoObject(); 
+            tipoPago = db.getTipoPago2(cmb_tipo_pago.getSelectedItem().toString());
+            
+                       
+                String diaCorte = tipoPago.getFecha_corte();
+                String diasPagoContado = tipoPago.getFecha_pago_contado();
+                String diasPagoMinimo =  tipoPago.getFecha_pago_minimo();
+                //SimpleDateFormat dateformat3 = new SimpleDateFormat("dd/MM/yyyy");
+                //Date date_fechaCorte = dateformat3.parse(fechaCorte);
+
+                if (diaCorte==null)
+                {
+                    jLabel9.setText("Fecha de Corte: No posee");
+                    jLabel10.setText( "PAGAR ANTES DEL:  No posee");
+                    jLabel11.setText( "Fecha Limite pago Mínimo:  No posee");
+                    
+                }
+                else   
+                {                 
+                    String fechaCompra = txt_fecha.getText().trim();
+                    String fechaCorte = diaCorte + "/" + utils.getMonth() +"/"+ utils.getYear();            
+
+                    SimpleDateFormat dateformat3 = new SimpleDateFormat("dd/MM/yyyy");            
+                    Date date_fechaCorte = dateformat3.parse(fechaCorte);
+                    Date date_fechaCompra = dateformat3.parse(fechaCompra);
+
+
+
+                    if(date_fechaCorte.after(date_fechaCompra) || date_fechaCorte.equals(date_fechaCompra))
+                    {
+                        
+                        System.out.println("1");
+                        
+                        jLabel9.setText( "Fecha de Corte:  "+dateformat3.format(date_fechaCorte));
+                        
+                        DateTime dt = new DateTime(date_fechaCorte);
+                        dt = dt.plusDays(Integer.parseInt(diasPagoContado));
+                        date_fechaContado = dt.toDate();
+
+                        DateTime dt2 = new DateTime(date_fechaCorte);
+                        dt2 = dt2.plusDays(Integer.parseInt(diasPagoMinimo));
+                        date_fechaMinimo = dt2.toDate();
+                    
+                        jLabel10.setText( "PAGAR ANTES DEL:  "+dateformat3.format(date_fechaContado));
+                        jLabel11.setText( "Fecha Limite pago Mínimo:  "+dateformat3.format(date_fechaMinimo));
+                    }
+
+                    if(date_fechaCorte.before(date_fechaCompra)){
+                        //Se debe sumar 1 mes a la fecha de corte
+                        System.out.println("2");
+                        
+                        DateTime dt = new DateTime(date_fechaCorte);
+                        dt = dt.plusMonths(1);
+                        date_fechaCorte = dt.toDate();
+                        jLabel9.setText( "Fecha de Corte:  "+dateformat3.format(date_fechaCorte));
+                        
+                        DateTime dt3 = new DateTime(date_fechaCorte);
+                        dt3 = dt3.plusDays(Integer.parseInt(diasPagoContado));
+                        date_fechaContado = dt3.toDate();                        
+
+                        DateTime dt2 = new DateTime(date_fechaCorte);
+                        dt2 = dt2.plusDays(Integer.parseInt(diasPagoMinimo));
+                        date_fechaMinimo = dt2.toDate();
+
+
+                        jLabel10.setText( "PAGAR ANTES DEL:  "+dateformat3.format(date_fechaContado));
+                        jLabel11.setText( "Fecha Limite pago Mínimo:  "+dateformat3.format(date_fechaMinimo));
+                    }
+                }                
+                        
+        }catch (Exception ex){
+                DialogError error = new DialogError (null,true,ex);
+                error.setVisible(true);
+        }          
+        
+    }//GEN-LAST:event_cmb_tipo_pagoActionPerformed
  
     public void insertarGasto(){
         
         try {            
-            String fecha = txt_fecha1.getText().trim();
+            String fecha = txt_fecha.getText().trim();
             String lugar = txt_lugar1.getText().trim();
             String monto = txt_monto1.getText().trim();
             double monto_gasto = Double.parseDouble(monto);
@@ -319,9 +474,12 @@ public class Gastos extends javax.swing.JDialog {
                 saldo = saldo - monto2;
                 presupuestodao.modificarSaldoRubro(gasto.getIdrubro(), String.valueOf(saldo));
 
-                */
+                */  
                 
-                presupuestodao.sp_insertar_gasto(rubrosobject.getIdentificador(), rubrosobject.getIdpresupuesto(), lugar, monto_gasto, tipo_pago, fecha);
+                if (!jLabel10.getText().equals("Fecha de Corte: No posee"))
+                    presupuestodao.sp_insertar_gasto(rubrosobject.getIdentificador(), rubrosobject.getIdpresupuesto(), lugar+" - "+jLabel10.getText(), monto_gasto, tipo_pago, fecha);
+                else
+                    presupuestodao.sp_insertar_gasto(rubrosobject.getIdentificador(), rubrosobject.getIdpresupuesto(), lugar, monto_gasto, tipo_pago, fecha);
                 
                 this.setVisible(false);
             }
@@ -337,7 +495,7 @@ public class Gastos extends javax.swing.JDialog {
         try {
             Utilities utils = new Utilities ();
 
-            String fecha = txt_fecha1.getText().trim();
+            String fecha = txt_fecha.getText().trim();
             String lugar = txt_lugar1.getText().trim();
             String monto =  txt_monto1.getText().trim();
             double monto_gasto = Double.parseDouble(monto);
@@ -384,14 +542,27 @@ public class Gastos extends javax.swing.JDialog {
     private javax.swing.JComboBox cmb_tipo_pago;
     private javax.swing.JButton gtn_cancelar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lbl_gasto;
     private javax.swing.JLabel lbl_quincena;
-    private javax.swing.JTextField txt_fecha1;
+    private javax.swing.JTextField txt_fecha;
     private javax.swing.JTextField txt_lugar1;
     private javax.swing.JTextField txt_monto1;
     // End of variables declaration//GEN-END:variables
